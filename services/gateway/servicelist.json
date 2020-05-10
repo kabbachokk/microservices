@@ -1,0 +1,6 @@
+[
+    { "name": "accounts",   "url": "http://accounts:3204/graphql" },
+    { "name": "reviews",    "url": "http://reviews:3203/graphql" },
+    { "name": "products",   "url": "http://products:3202/graphql" },
+    { "name": "inventory",  "url": "http://inventory:3201/graphql" }
+]

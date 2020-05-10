@@ -1,0 +1,53 @@
+version: "3"
+services:
+    accounts:
+        build: ./services/accounts
+        expose:
+            - "3204"
+        networks:
+            microservices:
+                aliases:
+                    - service-accounts
+    reviews:
+        build: ./services/reviews
+        expose:
+            - "3203"
+        networks:
+            microservices:
+                aliases:
+                    - service-reviews
+    products:
+        build: ./services/products
+        expose:
+            - "3202"
+        networks:
+            microservices:
+                aliases:
+                    - service-products
+    inventory:
+        build: ./services/inventory
+        expose:
+            - "3201"
+        networks:
+            microservices:
+                aliases:
+                    - service-inventory
+    gateway:
+        build: ./services/gateway
+        expose:
+            - "3200"
+        ports:
+            - "3200:3200"
+        environment: 
+            WAIT_HOSTS: inventory:3201, products:3202, reviews:3203, accounts:3204
+        depends_on:
+            - "accounts"
+            - "reviews"
+            - "products"
+            - "inventory"
+        networks:
+            microservices:
+                aliases:
+                    - service-gateway
+networks:
+    microservices:

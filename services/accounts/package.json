@@ -1,0 +1,11 @@
+{
+  "name": "service-accounts",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "@apollo/federation": "latest",
+    "apollo-server": "latest",
+    "graphql": "latest"
+  }
+}
