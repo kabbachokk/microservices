@@ -1,37 +1,66 @@
 version: "3"
 services:
+    
+    mongodb:
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+        ports:
+            - "27017:27017"
+        expose:
+            - "27017"
+        volumes:
+            - mongodb_data:/data/db
+        networks:
+            microservices:
+                aliases:
+                    - service-mongodb
+
     accounts:
         build: ./services/accounts
         expose:
             - "3204"
+        depends_on:
+            - "mongodb"
         networks:
             microservices:
                 aliases:
                     - service-accounts
+
     reviews:
         build: ./services/reviews
         expose:
             - "3203"
+        depends_on:
+            - "mongodb"
         networks:
             microservices:
                 aliases:
                     - service-reviews
+
     products:
         build: ./services/products
         expose:
             - "3202"
+        depends_on:
+            - "mongodb"
         networks:
             microservices:
                 aliases:
                     - service-products
+
     inventory:
         build: ./services/inventory
         expose:
             - "3201"
+        depends_on:
+            - "mongodb"
         networks:
             microservices:
                 aliases:
                     - service-inventory
+
     gateway:
         build: ./services/gateway
         expose:
@@ -41,6 +70,7 @@ services:
         environment: 
             WAIT_HOSTS: inventory:3201, products:3202, reviews:3203, accounts:3204
         depends_on:
+            - "mongodb"
             - "accounts"
             - "reviews"
             - "products"
@@ -49,5 +79,24 @@ services:
             microservices:
                 aliases:
                     - service-gateway
+
+    webapp:
+        build: ./services/webapp
+        expose:
+            - "3000"
+        ports:
+            - "3000:3000"
+        environment: 
+            WAIT_HOSTS: gateway:3200
+        depends_on:
+            - "gateway"
+        networks:
+            microservices:
+                aliases:
+                    - service-webapp
+
 networks:
     microservices:
+
+volumes:
+    mongodb_data:
