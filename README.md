@@ -8,16 +8,16 @@ docker-compose up -d
 
 | Сервис | Готовность | Описание |
 | --- | :--- | --- |
-| Comments  | * [ ] | Комментарии |
-| Reviews   | * [ ]| Обзоры |
-| Catalog   | * [ ]| Каталог |
-| Shops     | * [ ]| Магазины |
-| Storages  | * [ ]| Склады |
-| Vendors   | * [ ]| Поставщики |
-| Cart      | * [ ]| Корзина |
-| Recommendations | * [ ]| Рекомендации |
-| Ads       | * [ ]| Реклама |
-| Orders    | * [ ]| Заказы |
-| Notifications | * [ ]| Уведомления	|
-| Shipment  | * [ ]| Доставка |
-| Payment    |* [ ]| Оплата |
+| Comments  | <ul><li>[ ] Не готов</li></ul> | Комментарии |
+| Reviews   | <ul><li>[ ] Не готов</li></ul> | Обзоры |
+| Catalog   | <ul><li>[ ] Не готов</li></ul> | Каталог |
+| Shops     | <ul><li>[ ] Не готов</li></ul> | Магазины |
+| Storages  | <ul><li>[ ] Не готов</li></ul> | Склады |
+| Vendors   | <ul><li>[ ] Не готов</li></ul> | Поставщики |
+| Cart      | <ul><li>[ ] Не готов</li></ul> | Корзина |
+| Recommendations | <ul><li>[ ] Не готов</li></ul> | Рекомендации |
+| Ads       | <ul><li>[ ] Не готов</li></ul> | Реклама |
+| Orders    | <ul><li>[ ] Не готов</li></ul> | Заказы |
+| Notifications | <ul><li>[ ] Не готов</li></ul> | Уведомления	|
+| Shipment  | <ul><li>[ ] Не готов</li></ul> | Доставка |
+| Payment   | <ul><li>[ ] Не готов</li></ul> | Оплата |
