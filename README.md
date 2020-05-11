@@ -1,9 +1,19 @@
 <h2>Как запустить</h2>
-Запускать из <b>WSL или Linux!</b>
+<p>Запускать из <b>WSL или Linux!</b></p>
+
+<p>Создать следующую структуру каталогов:</p>
+
+```
+└───dockerfiles
+│   └───orientdb
+│       └───config
+|       └───databases
+```
 
 ```shell
 docker-compose up -d
 ```
+
 <h2>Что делаем</h2>
 <p>E-commerce приложение разбитое на множество микросервисов с помощью graphql-federation.</p>
 
@@ -17,7 +27,7 @@ docker-compose up -d
 <thead>
 <tr>
 <th style="text-align:left"> Сервис</th>
-<th style="text-align:left"> Готовность</th>
+<th style="text-align:left"> Версия</th>
 <th style="text-align:left"> Описание</th>
 </tr>
 </thead>
