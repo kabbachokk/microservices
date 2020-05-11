@@ -1,28 +1,29 @@
 version: "3"
 services:
-    
-    mongodb:
-        image: mongo:latest
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: root
-        ports:
-            - "27017:27017"
-        expose:
-            - "27017"
+
+    orientdb:
+        image: orientdb:latest
         volumes:
-            - mongodb_data:/data/db
+            - orientdb_config:/orientdb/config
+            - orientdb_databases:/orientdb/databases
+        environment:
+            ORIENTDB_ROOT_PASSWORD: root
+            ORIENTDB_NODE_NAME: root
+        ports:
+            - "2480:2480"
+            - "2424:2424"
+            - "8182:8182"
         networks:
             microservices:
                 aliases:
-                    - service-mongodb
+                    - database-orientdb
 
     accounts:
         build: ./services/accounts
         expose:
             - "3204"
         depends_on:
-            - "mongodb"
+            - "orientdb"
         networks:
             microservices:
                 aliases:
@@ -33,7 +34,7 @@ services:
         expose:
             - "3203"
         depends_on:
-            - "mongodb"
+            - "orientdb"
         networks:
             microservices:
                 aliases:
@@ -44,7 +45,7 @@ services:
         expose:
             - "3202"
         depends_on:
-            - "mongodb"
+            - "orientdb"
         networks:
             microservices:
                 aliases:
@@ -55,22 +56,20 @@ services:
         expose:
             - "3201"
         depends_on:
-            - "mongodb"
+            - "orientdb"
         networks:
             microservices:
                 aliases:
                     - service-inventory
 
-    gateway:
-        build: ./services/gateway
-        expose:
-            - "3200"
+    api-gateway:
+        build: ./services/api-gateway
         ports:
             - "3200:3200"
         environment: 
             WAIT_HOSTS: inventory:3201, products:3202, reviews:3203, accounts:3204
         depends_on:
-            - "mongodb"
+            - "orientdb"
             - "accounts"
             - "reviews"
             - "products"
@@ -78,18 +77,16 @@ services:
         networks:
             microservices:
                 aliases:
-                    - service-gateway
+                    - service-api-gateway
 
     webapp:
         build: ./services/webapp
-        expose:
-            - "3000"
         ports:
             - "3000:3000"
         environment: 
-            WAIT_HOSTS: gateway:3200
+            WAIT_HOSTS: api-gateway:3200
         depends_on:
-            - "gateway"
+            - "api-gateway"
         networks:
             microservices:
                 aliases:
@@ -99,4 +96,5 @@ networks:
     microservices:
 
 volumes:
-    mongodb_data:
+    orientdb_config:
+    orientdb_databases:
