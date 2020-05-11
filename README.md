@@ -8,16 +8,16 @@ docker-compose up -d
 
 | Сервис | Готовность | Описание |
 | --- | :---: | --- |
-| Comments  | <span>[ ]</span> | Комментарии |
-| Reviews   | <span>[ ]</span> | Обзоры |
-| Catalog   | <span>[ ]</span> | Каталог |
-| Shops     | <span>[ ]</span> | Магазины |
-| Storages  | <span>[ ]</span> | Склады |
-| Vendors   | <span>[ ]</span> | Поставщики |
-| Cart      | <span>[ ]</span> | Корзина |
-| Recommendations | <span>[ ]</span> | Рекомендации |
-| Ads       | <span>[ ]</span> | Реклама |
-| Orders    | <span>[ ]</span> | Заказы |
-| Notifications | <span>[ ]</span> | Уведомления	|
-| Shipment  | <span>[ ]</span> | Доставка |
-| Payment   | <span>[ ]</span> | Оплата |
+| Comments  | ✗ | Комментарии |
+| Reviews   | ✗ | Обзоры |
+| Catalog   | ✗ | Каталог |
+| Shops     | ✗ | Магазины |
+| Storages  | ✗ | Склады |
+| Vendors   | ✗ | Поставщики |
+| Cart      | ✗ | Корзина |
+| Recommendations | ✗ | Рекомендации |
+| Ads       | ✗ | Реклама |
+| Orders    | ✗ | Заказы |
+| Notifications |✗| Уведомления	|
+| Shipment  | ✗ | Доставка |
+| Payment   | ✗ | Оплата |
