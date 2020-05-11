@@ -97,4 +97,12 @@ networks:
 
 volumes:
     orientdb_config:
+        driver_opts:
+            type: none
+            device: ${PWD}/dockerfiles/orientdb/config
+            o: bind
     orientdb_databases:
+        driver_opts:
+            type: none
+            device: ${PWD}/dockerfiles/orientdb/databases
+            o: bind
