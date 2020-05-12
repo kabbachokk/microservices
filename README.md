@@ -6,8 +6,12 @@
 ```
 └───dockerfiles
 │   └───orientdb
-│       └───config
-|       └───databases
+│   |   └───config
+|   |   └───databases
+│   └───nginx
+│   |   └───config
+|   |   └───certificates
+│   └───certbot
 ```
 
 <p>Запустить контейнеры с помощью docker-compose</p>
@@ -117,5 +121,5 @@ docker-compose up -d
     <li>[ ] Вставить схему сервисов</li>
     <li>[ ] Добавить базовые определения для всех сервисов</li>
     <li>[ ] Настроить GitHub Actions</li>
+    <li>[ ] Настроить GitHub Проекты</li>
 </ul>
-<hr/>

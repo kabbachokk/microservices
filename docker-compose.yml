@@ -18,8 +18,8 @@ services:
                 aliases:
                     - database-orientdb
 
-    accounts:
-        build: ./services/accounts
+    backend-accounts:
+        build: ./services/backend/accounts
         expose:
             - "3204"
         depends_on:
@@ -29,8 +29,8 @@ services:
                 aliases:
                     - service-accounts
 
-    reviews:
-        build: ./services/reviews
+    backend-reviews:
+        build: ./services/backend/reviews
         expose:
             - "3203"
         depends_on:
@@ -40,8 +40,8 @@ services:
                 aliases:
                     - service-reviews
 
-    products:
-        build: ./services/products
+    backend-products:
+        build: ./services/backend/products
         expose:
             - "3202"
         depends_on:
@@ -51,8 +51,8 @@ services:
                 aliases:
                     - service-products
 
-    inventory:
-        build: ./services/inventory
+    backend-inventory:
+        build: ./services/backend/inventory
         expose:
             - "3201"
         depends_on:
@@ -62,25 +62,29 @@ services:
                 aliases:
                     - service-inventory
 
-    api-gateway:
-        build: ./services/api-gateway
+    backend-gateway:
+        build: ./services/backend/gateway
         ports:
             - "3200:3200"
         environment: 
-            WAIT_HOSTS: inventory:3201, products:3202, reviews:3203, accounts:3204
+            WAIT_HOSTS: 
+                backend-inventory:3201, 
+                backend-products:3202, 
+                backend-reviews:3203, 
+                backend-accounts:3204
         depends_on:
             - "orientdb"
-            - "accounts"
-            - "reviews"
-            - "products"
-            - "inventory"
+            - "backend-accounts"
+            - "backend-reviews"
+            - "backend-products"
+            - "backend-inventory"
         networks:
             microservices:
                 aliases:
-                    - service-api-gateway
+                    - service-backend-gateway
 
-    webapp:
-        build: ./services/webapp
+    frontend:
+        build: ./services/frontend
         ports:
             - "3000:3000"
         environment: 
@@ -90,7 +94,35 @@ services:
         networks:
             microservices:
                 aliases:
-                    - service-webapp
+                    - service-frontend
+
+    nginx-gateway:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - nginx_config:/etc/nginx/conf.d/
+            - nginx_certificates:/etc/ssl/
+        # ---
+        #    - certbot:/var/www/certbot
+        # command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+        # ---
+        networks:
+            microservices:
+
+    # ---
+    # certbot:
+    #     image: certbot/certbot
+    #   restart: unless-stopped
+    #   volumes:
+    #       - nginx_certificates:/etc/letsencrypt
+    #       - certbot:/var/www/certbot
+    #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    #   networks:
+    #       microservices:
+    # ---
 
 networks:
     microservices:
@@ -106,3 +138,20 @@ volumes:
             type: none
             device: ${PWD}/dockerfiles/orientdb/databases
             o: bind
+    nginx_config:
+        driver_opts:
+            type: none
+            device: ${PWD}/dockerfiles/nginx/config
+            o: bind
+    nginx_certificates:
+        driver_opts:
+            type: none
+            device: ${PWD}/dockerfiles/nginx/certificates
+            o: bind
+    # ---
+    # certbot:
+    #    driver_opts:
+    #         type: none
+    #         device: ${PWD}/dockerfiles/certbot
+    #         o: bind
+    # ---
